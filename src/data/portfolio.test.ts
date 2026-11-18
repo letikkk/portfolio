@@ -20,8 +20,10 @@ describe('portfolio data contract', () => {
     expect(PROFILE.commissionsOpen).toBe(true);
   });
 
-  it('includes all five cropped local mp4 project showcases with relative paths', () => {
+  it('includes all five cropped local mp4 project showcases with katana-combat featured first', () => {
     expect(PROJECTS).toHaveLength(5);
+    expect(PROJECTS[0].id).toBe('katana-combat');
+    expect(PROJECTS[0].featured).toBe(true);
     for (const project of PROJECTS) {
       expect(project.videoSrc).toMatch(/^\.\/videos\/[a-z0-9-]+\.mp4$/);
       expect(project.aspectRatio).toBeGreaterThan(1);

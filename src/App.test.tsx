@@ -33,13 +33,13 @@ describe('Letik Portfolio App', () => {
   it('opens the Theater Modal on project selection, navigates next, and closes on Escape', () => {
     render(<App />);
 
-    fireEvent.click(screen.getByRole('button', { name: /inspect tycoon progression engine/i }));
+    fireEvent.click(screen.getByRole('button', { name: /inspect melee combat & aoe vfx/i }));
     const dialog = screen.getByRole('dialog');
     expect(dialog).toBeInTheDocument();
-    expect(dialog).toHaveTextContent(/dynamic cash\/sec multiplier scaling/i);
+    expect(dialog).toHaveTextContent(/custom weapon state machine/i);
 
     fireEvent.click(screen.getByRole('button', { name: /next project/i }));
-    expect(dialog).toHaveTextContent(/melee combat & aoe vfx/i);
+    expect(dialog).toHaveTextContent(/tycoon progression engine/i);
 
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

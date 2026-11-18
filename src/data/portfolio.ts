@@ -41,6 +41,24 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: 'katana-combat',
+    title: 'Melee Combat & AoE VFX',
+    subtitle: 'Katana Combat Prototype',
+    category: 'Gameplay & Combat',
+    duration: '0:32',
+    videoSrc: './videos/katana-combat.mp4',
+    aspectRatio: 2.54,
+    featured: true,
+    summary:
+      'Responsive katana melee combat featuring M1 slash chains, spatial hitbox validation, knockback physics on R15 rigs, and an AoE shockwave ability with radial debris.',
+    systems: [
+      'Custom weapon state machine with cooldown & combo gating',
+      'Server-authoritative hitbox verification with debug bounding overlay',
+      'Radial shockwave & tweened rock debris VFX replication',
+    ],
+    tags: ['Combat', 'Hitboxes', 'Client-Server', 'VFX'],
+  },
+  {
     id: 'tycoon-engine',
     title: 'Tycoon Progression Engine',
     subtitle: "Builder's Empire",
@@ -48,7 +66,6 @@ export const PROJECTS: ProjectItem[] = [
     duration: '0:50',
     videoSrc: './videos/tycoon-engine.mp4',
     aspectRatio: 1.71,
-    featured: true,
     summary:
       'Data-driven tycoon loop with scaling cash-per-second income, ProximityPrompt purchase nodes, directional guidance beam, animated building unlocks, and a custom player leaderboard.',
     systems: [
@@ -58,23 +75,6 @@ export const PROJECTS: ProjectItem[] = [
       'Custom Money & Rebirths leaderboard integration',
     ],
     tags: ['Luau', 'Tycoon Loop', 'ProximityPrompts', 'Replica'],
-  },
-  {
-    id: 'katana-combat',
-    title: 'Melee Combat & AoE VFX',
-    subtitle: 'Katana Combat Prototype',
-    category: 'Gameplay & Combat',
-    duration: '0:32',
-    videoSrc: './videos/katana-combat.mp4',
-    aspectRatio: 2.54,
-    summary:
-      'Responsive katana melee combat featuring M1 slash chains, spatial hitbox validation, knockback physics on R15 rigs, and an AoE shockwave ability with radial debris.',
-    systems: [
-      'Custom weapon state machine with cooldown & combo gating',
-      'Server-authoritative hitbox verification with debug bounding overlay',
-      'Radial shockwave & tweened rock debris VFX replication',
-    ],
-    tags: ['Combat', 'Hitboxes', 'Client-Server', 'VFX'],
   },
   {
     id: 'simulator-economy',

@@ -54,7 +54,7 @@ export function VideoCard({ project, featured = false, modalOpen, onInspect }: V
       <div
         className="relative flex w-full items-center justify-center overflow-hidden border-b border-[#1D212B] bg-[#050608]"
         style={{
-          aspectRatio: featured ? '1.71' : '2.35',
+          aspectRatio: featured ? String(project.aspectRatio) : '2.05',
         }}
       >
         <video
