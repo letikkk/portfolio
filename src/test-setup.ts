@@ -29,3 +29,10 @@ if (typeof HTMLMediaElement !== 'undefined') {
     value: vi.fn(),
   });
 }
+
+if (typeof HTMLCanvasElement !== 'undefined') {
+  Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+    configurable: true,
+    value: vi.fn(() => null),
+  });
+}

@@ -63,4 +63,20 @@ describe('Letik Portfolio App', () => {
     fireEvent.click(screen.getByRole('button', { name: /copy brief template/i }));
     expect(await screen.findByText(/brief template copied/i)).toBeInTheDocument();
   });
+
+  it('switches interactive canvas background modes', () => {
+    render(<App />);
+
+    const swarmBtn = screen.getByRole('button', { name: 'Swarm' });
+    const vectorsBtn = screen.getByRole('button', { name: 'Vectors' });
+    const orbitsBtn = screen.getByRole('button', { name: 'Orbits' });
+
+    expect(swarmBtn).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.click(vectorsBtn);
+    expect(vectorsBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(swarmBtn).toHaveAttribute('aria-pressed', 'false');
+
+    fireEvent.click(orbitsBtn);
+    expect(orbitsBtn).toHaveAttribute('aria-pressed', 'true');
+  });
 });

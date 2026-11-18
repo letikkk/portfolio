@@ -28,8 +28,212 @@
   }
 }
 
+@keyframes hero-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes card-reveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes shimmer-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes radar-ping {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  75%,
+  100% {
+    transform: scale(2.35);
+    opacity: 0;
+  }
+}
+
+@keyframes modal-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-pop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-hero-rise {
+  animation: hero-rise 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-card-reveal {
+  animation: card-reveal 0.58s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-text-shimmer {
+  background-size: 220% 220%;
+  animation: shimmer-gradient 9s ease infinite;
+}
+
+.animate-radar-ping {
+  animation: radar-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-modal-fade {
+  animation: modal-fade 0.2s ease-out both;
+}
+
+.animate-modal-pop {
+  animation: modal-pop 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Interactive cursor spotlight card surface */
+@layer components {
+  .spotlight-card {
+    position: relative;
+    --spot-x: 50%;
+    --spot-y: 50%;
+    --spot-opacity: 0;
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.28s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--spot-opacity);
+    transition: opacity 0.28s ease;
+    background: radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      rgba(255, 255, 255, 0.085),
+      rgba(56, 189, 248, 0.05) 38%,
+      transparent 72%
+    );
+    z-index: 2;
+  }
+
+  .spotlight-card::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    opacity: var(--spot-opacity);
+    transition: opacity 0.28s ease;
+    background: radial-gradient(
+      280px circle at var(--spot-x) var(--spot-y),
+      rgba(255, 255, 255, 0.42),
+      rgba(56, 189, 248, 0.35) 35%,
+      transparent 70%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 3;
+  }
+
+  .spotlight-card:hover {
+    --spot-opacity: 1;
+  }
+
+  /* Tactile specular button sweep (preserves caller positioning like relative or absolute) */
+  .btn-sheen {
+    overflow: hidden;
+  }
+
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 65%;
+    height: 100%;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 100%
+    );
+    transform: skewX(-18deg);
+    transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .btn-sheen:hover::after {
+    left: 145%;
+  }
+}
+
+/* Subtle section ambient backdrop grid */
+.pattern-grid-mask {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size:
+    28px 28px,
+    112px 112px,
+    112px 112px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .animate-hero-rise,
+  .animate-card-reveal,
+  .animate-text-shimmer,
+  .animate-radar-ping,
+  .animate-modal-fade,
+  .animate-modal-pop {
+    animation: none !important;
+  }
+
+  .spotlight-card,
+  .btn-sheen::after {
+    transition: none !important;
   }
 }

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CommissionSection } from './components/CommissionSection';
+import { CursorFollower } from './components/CursorFollower';
 import { Hero } from './components/Hero';
+import { InteractiveBackground, type BackgroundMode } from './components/InteractiveBackground';
 import { Navbar } from './components/Navbar';
 import { ProjectShowcase } from './components/ProjectShowcase';
 import { StackSection } from './components/StackSection';
@@ -19,6 +21,7 @@ export function App() {
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
   const [copiedHandle, setCopiedHandle] = useState(false);
   const [copiedTemplate, setCopiedTemplate] = useState(false);
+  const [bgMode, setBgMode] = useState<BackgroundMode>('swarm');
 
   useEffect(() => {
     if (!copiedHandle) {
@@ -66,24 +69,35 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#07080A] text-[#F3F5F8]">
-      <Navbar copiedHandle={copiedHandle} onCopyHandle={handleCopyDiscord} />
-      <main>
-        <Hero copiedHandle={copiedHandle} onCopyHandle={handleCopyDiscord} />
-        <ProjectShowcase
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          modalOpen={activeProject !== null}
-          onInspectProject={setActiveProject}
-        />
-        <StackSection />
-        <CommissionSection
-          copiedHandle={copiedHandle}
-          copiedTemplate={copiedTemplate}
-          onCopyHandle={handleCopyDiscord}
-          onCopyTemplate={handleCopyTemplate}
-        />
-      </main>
+    <div className="relative min-h-screen overflow-x-clip bg-[#07080A] text-[#F3F5F8]">
+      <InteractiveBackground mode={bgMode} />
+      <CursorFollower />
+
+      <div className="relative z-10">
+        <Navbar copiedHandle={copiedHandle} onCopyHandle={handleCopyDiscord} />
+        <main>
+          <Hero
+            copiedHandle={copiedHandle}
+            onCopyHandle={handleCopyDiscord}
+            bgMode={bgMode}
+            onChangeBgMode={setBgMode}
+          />
+          <ProjectShowcase
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            modalOpen={activeProject !== null}
+            onInspectProject={setActiveProject}
+          />
+          <StackSection />
+          <CommissionSection
+            copiedHandle={copiedHandle}
+            copiedTemplate={copiedTemplate}
+            onCopyHandle={handleCopyDiscord}
+            onCopyTemplate={handleCopyTemplate}
+          />
+        </main>
+      </div>
+
       <VideoModal
         project={activeProject}
         onClose={() => setActiveProject(null)}
