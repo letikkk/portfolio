@@ -2,8 +2,10 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   COMMISSION_TERMS,
   DISCORD_BRIEF_TEMPLATE,
+  OPEN_SOURCE_REPOS,
   PROFILE,
   PROJECTS,
+  ROBLOX_GROUPS,
   STACK_GROUPS,
   filterProjects,
 } from './portfolio';
@@ -15,17 +17,38 @@ describe('portfolio data contract', () => {
     expect(PROFILE.role).toBe('Full-Stack Roblox Scripter');
     expect(PROFILE.experienceYears).toBe(4);
     expect(PROFILE.visitsLabel).toBe('25M+');
+    expect(PROFILE.studioMembersLabel).toBe('447K+');
     expect(PROFILE.timezone).toBe('GMT+3');
     expect(PROFILE.discordHandle).toBe('@letikgg');
+    expect(PROFILE.githubUrl).toBe('https://github.com/letikkk');
     expect(PROFILE.commissionsOpen).toBe(true);
   });
 
-  it('includes all five cropped local mp4 project showcases with katana-combat featured first', () => {
+  it('lists all three verified Roblox studio communities and public Luau repos', () => {
+    expect(ROBLOX_GROUPS).toHaveLength(3);
+    expect(ROBLOX_GROUPS.map((g) => g.name)).toEqual([
+      'Tempest Realm',
+      'Ninty Studios',
+      'Soy Games!',
+    ]);
+    for (const group of ROBLOX_GROUPS) {
+      expect(group.url).toMatch(/^https:\/\/www\.roblox\.com\/communities\//);
+      expect(group.memberCount).toBeGreaterThan(0);
+    }
+
+    expect(OPEN_SOURCE_REPOS.length).toBeGreaterThanOrEqual(3);
+    for (const repo of OPEN_SOURCE_REPOS) {
+      expect(repo.url).toMatch(/^https:\/\/github\.com\/letikkk\//);
+    }
+  });
+
+  it('includes all five cropped local mp4 project showcases with webp posters and katana-combat featured first', () => {
     expect(PROJECTS).toHaveLength(5);
     expect(PROJECTS[0].id).toBe('katana-combat');
     expect(PROJECTS[0].featured).toBe(true);
     for (const project of PROJECTS) {
       expect(project.videoSrc).toMatch(/^\.\/videos\/[a-z0-9-]+\.mp4$/);
+      expect(project.posterSrc).toMatch(/^\.\/posters\/[a-z0-9-]+\.webp$/);
       expect(project.aspectRatio).toBeGreaterThan(1);
       expect(project.systems.length).toBeGreaterThanOrEqual(2);
       expect(project.tags.length).toBeGreaterThanOrEqual(2);

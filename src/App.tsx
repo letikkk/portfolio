@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CommissionSection } from './components/CommissionSection';
 import { CursorFollower } from './components/CursorFollower';
 import { Hero } from './components/Hero';
@@ -6,11 +6,13 @@ import { InteractiveBackground, type BackgroundMode } from './components/Interac
 import { Navbar } from './components/Navbar';
 import { ProjectShowcase } from './components/ProjectShowcase';
 import { StackSection } from './components/StackSection';
+import { StudiosSection } from './components/StudiosSection';
 import { VideoModal } from './components/VideoModal';
 import {
   DISCORD_BRIEF_TEMPLATE,
   PROFILE,
   PROJECTS,
+  filterProjects,
   type ProjectCategory,
   type ProjectItem,
 } from './data/portfolio';
@@ -22,6 +24,11 @@ export function App() {
   const [copiedHandle, setCopiedHandle] = useState(false);
   const [copiedTemplate, setCopiedTemplate] = useState(false);
   const [bgMode, setBgMode] = useState<BackgroundMode>('swarm');
+
+  const visibleProjects = useMemo(
+    () => filterProjects(PROJECTS, selectedCategory),
+    [selectedCategory],
+  );
 
   useEffect(() => {
     if (!copiedHandle) {
@@ -55,17 +62,17 @@ export function App() {
 
   const stepModalProject = useCallback(
     (delta: number) => {
-      if (!activeProject) {
+      if (!activeProject || visibleProjects.length <= 1) {
         return;
       }
-      const index = PROJECTS.findIndex((p) => p.id === activeProject.id);
+      const index = visibleProjects.findIndex((p) => p.id === activeProject.id);
       if (index === -1) {
         return;
       }
-      const nextIndex = (index + delta + PROJECTS.length) % PROJECTS.length;
-      setActiveProject(PROJECTS[nextIndex]);
+      const nextIndex = (index + delta + visibleProjects.length) % visibleProjects.length;
+      setActiveProject(visibleProjects[nextIndex]);
     },
-    [activeProject],
+    [activeProject, visibleProjects],
   );
 
   return (
@@ -82,6 +89,7 @@ export function App() {
             bgMode={bgMode}
             onChangeBgMode={setBgMode}
           />
+          <StudiosSection />
           <ProjectShowcase
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
@@ -100,6 +108,7 @@ export function App() {
 
       <VideoModal
         project={activeProject}
+        hasMultiple={visibleProjects.length > 1}
         onClose={() => setActiveProject(null)}
         onPrev={() => stepModalProject(-1)}
         onNext={() => stepModalProject(1)}

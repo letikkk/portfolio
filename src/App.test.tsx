@@ -79,4 +79,56 @@ describe('Letik Portfolio App', () => {
     fireEvent.click(orbitsBtn);
     expect(orbitsBtn).toHaveAttribute('aria-pressed', 'true');
   });
+
+  it('renders verified Roblox studio groups and GitHub open-source links', () => {
+    render(<App />);
+
+    expect(screen.getByRole('link', { name: /tempest realm/i })).toHaveAttribute(
+      'href',
+      'https://www.roblox.com/communities/35291438/Tempest-Realm#!/about',
+    );
+    expect(screen.getByRole('link', { name: /ninty studios/i })).toHaveAttribute(
+      'href',
+      'https://www.roblox.com/communities/2703315/Ninty-Studios#!/about',
+    );
+    expect(screen.getByRole('link', { name: /soy games!/i })).toHaveAttribute(
+      'href',
+      'https://www.roblox.com/communities/452639438/Soy-Games#!/about',
+    );
+    const githubLinks = screen.getAllByRole('link', { name: /github\.com\/letikkk/i });
+    expect(githubLinks.length).toBeGreaterThanOrEqual(2);
+    for (const link of githubLinks) {
+      expect(link).toHaveAttribute('href', 'https://github.com/letikkk');
+    }
+  });
+
+  it('scopes modal next/prev navigation to the active category filter', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Tech Demos' }));
+    fireEvent.click(
+      screen.getByRole('button', { name: /inspect real-time raycast pixel renderer/i }),
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toHaveTextContent(/real-time raycast pixel renderer/i);
+
+    fireEvent.click(screen.getByRole('button', { name: /next project/i }));
+    expect(dialog).toHaveTextContent(/2d freehand drawing canvas/i);
+
+    // Wraps back to Raycast instead of jumping outside Tech Demos
+    fireEvent.click(screen.getByRole('button', { name: /next project/i }));
+    expect(dialog).toHaveTextContent(/real-time raycast pixel renderer/i);
+  });
+
+  it('toggles mobile navigation menu and closes on Escape', () => {
+    render(<App />);
+
+    const toggle = screen.getByRole('button', { name: /open navigation menu/i });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(toggle);
+
+    expect(screen.getByRole('navigation', { name: /mobile navigation/i })).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('navigation', { name: /mobile navigation/i })).not.toBeInTheDocument();
+  });
 });

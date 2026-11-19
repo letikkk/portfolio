@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowUpRight, Check, Copy, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/portfolio';
 import { handleSpotlightLeave, handleSpotlightMove } from '../utils/pointer';
+import { GitHubIcon } from './Icons';
 import type { BackgroundMode } from './InteractiveBackground';
 import { Magnetic } from './Magnetic';
 
@@ -69,7 +70,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
           className="animate-hero-rise flex flex-wrap items-center justify-between gap-3"
           style={{ animationDelay: '0ms' }}
         >
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#1D212B] bg-[#0D0F13]/85 px-3.5 py-1 text-xs text-[#9CA3B2] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#1D212B] bg-[#0D0F13]/85 px-3.5 py-1.5 text-xs text-[#9CA3B2] backdrop-blur-md">
             <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden="true">
               <span className="animate-radar-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E]" />
               <span className="relative h-2 w-2 rounded-full bg-[#22C55E]" />
@@ -82,11 +83,11 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
           </div>
 
           <div
-            className="inline-flex items-center gap-1 rounded-full border border-[#1D212B] bg-[#0D0F13]/80 p-1 text-[11px] backdrop-blur-md"
+            className="inline-flex items-center gap-1 rounded-full border border-[#1D212B] bg-[#0D0F13]/80 p-1 text-xs backdrop-blur-md"
             role="group"
             aria-label="Interactive canvas mode"
           >
-            <span className="hidden items-center gap-1 pl-2 pr-1 font-mono text-[#636B7D] sm:inline-flex">
+            <span className="hidden items-center gap-1 pl-2 pr-1 font-mono text-[11px] text-[#858FA3] sm:inline-flex">
               <Sparkles className="h-3 w-3 text-[#38BDF8]" aria-hidden="true" />
               <span>Field</span>
             </span>
@@ -98,10 +99,10 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
                   type="button"
                   aria-pressed={active}
                   onClick={() => onChangeBgMode(item.id)}
-                  className={`rounded-full px-2.5 py-0.5 font-mono transition-all duration-200 ${
+                  className={`min-h-[32px] rounded-full px-3 py-1 font-mono text-[11px] transition-all duration-200 sm:min-h-0 sm:py-0.5 ${
                     active
                       ? 'bg-white/12 text-[#F3F5F8] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]'
-                      : 'text-[#636B7D] hover:text-[#F3F5F8]'
+                      : 'text-[#858FA3] hover:text-[#F3F5F8]'
                   }`}
                 >
                   {item.label}
@@ -134,17 +135,17 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             <button
               type="button"
               onClick={onCopyHandle}
-              className="btn-sheen relative inline-flex items-center gap-2 rounded-md bg-[#F3F5F8] px-4 py-2.5 text-sm font-medium text-[#07080A] shadow-[0_0_24px_rgba(255,255,255,0.1)] transition-all duration-200 hover:bg-[#38BDF8] hover:shadow-[0_0_28px_rgba(56,189,248,0.35)] active:scale-[0.97]"
+              className="btn-sheen relative inline-flex min-h-[44px] items-center gap-2 rounded-md bg-[#F3F5F8] px-4 py-2.5 text-sm font-medium text-[#07080A] shadow-[0_0_24px_rgba(255,255,255,0.1)] transition-all duration-200 hover:bg-[#38BDF8] hover:shadow-[0_0_28px_rgba(56,189,248,0.35)] active:scale-[0.97]"
             >
               {copiedHandle ? (
                 <>
                   <Check className="h-4 w-4" aria-hidden="true" />
-                  <span>Discord {PROFILE.discordHandle} copied</span>
+                  <span>Copied {PROFILE.discordHandle}</span>
                 </>
               ) : (
                 <>
                   <Copy className="h-4 w-4" aria-hidden="true" />
-                  <span>Message on Discord ({PROFILE.discordHandle})</span>
+                  <span>Copy Discord ({PROFILE.discordHandle})</span>
                 </>
               )}
             </button>
@@ -153,7 +154,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
           <Magnetic strength={0.18}>
             <a
               href="#work"
-              className="group inline-flex items-center gap-1.5 rounded-md border border-[#1D212B] bg-[#0D0F13]/85 px-4 py-2.5 text-sm font-medium text-[#F3F5F8] backdrop-blur-md transition-all duration-200 hover:border-[#38BDF8]/50 hover:bg-[#13161D] active:scale-[0.97]"
+              className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-[#1D212B] bg-[#0D0F13]/85 px-4 py-2.5 text-sm font-medium text-[#F3F5F8] backdrop-blur-md transition-all duration-200 hover:border-[#38BDF8]/50 hover:bg-[#13161D] active:scale-[0.97]"
             >
               <span>Browse showcase</span>
               <ArrowUpRight
@@ -163,7 +164,23 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             </a>
           </Magnetic>
 
-          <span className="ml-1 hidden font-mono text-[11px] text-[#636B7D] md:inline-block">
+          <Magnetic strength={0.16}>
+            <a
+              href={PROFILE.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-[44px] items-center gap-2 rounded-md border border-[#1D212B] bg-[#0D0F13]/85 px-4 py-2.5 text-sm font-medium text-[#F3F5F8] backdrop-blur-md transition-all duration-200 hover:border-[#38BDF8]/50 hover:bg-[#13161D] active:scale-[0.97]"
+            >
+              <GitHubIcon className="h-4 w-4 text-[#9CA3B2] transition-colors group-hover:text-[#F3F5F8]" />
+              <span>GitHub</span>
+              <ArrowUpRight
+                className="h-3.5 w-3.5 text-[#858FA3] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#38BDF8]"
+                aria-hidden="true"
+              />
+            </a>
+          </Magnetic>
+
+          <span className="ml-1 hidden font-mono text-[11px] text-[#858FA3] lg:inline-block">
             Move cursor · Click anywhere to pulse
           </span>
         </div>
@@ -177,7 +194,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             onPointerLeave={handleSpotlightLeave}
             className="spotlight-card rounded-lg border border-[#1D212B] bg-[#0D0F13]/80 px-5 py-4 backdrop-blur-md hover:-translate-y-0.5"
           >
-            <dt className="text-xs text-[#636B7D]">Experience</dt>
+            <dt className="text-xs text-[#858FA3]">Experience</dt>
             <dd className="mt-1 font-mono text-xl font-medium text-[#F3F5F8]">
               {yearsCount} Years
             </dd>
@@ -187,7 +204,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             onPointerLeave={handleSpotlightLeave}
             className="spotlight-card rounded-lg border border-[#1D212B] bg-[#0D0F13]/80 px-5 py-4 backdrop-blur-md hover:-translate-y-0.5"
           >
-            <dt className="text-xs text-[#636B7D]">Contributed places</dt>
+            <dt className="text-xs text-[#858FA3]">Contributed places</dt>
             <dd className="mt-1 font-mono text-xl font-medium text-[#38BDF8]">
               {visitsCount}M+
             </dd>
@@ -197,7 +214,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             onPointerLeave={handleSpotlightLeave}
             className="spotlight-card rounded-lg border border-[#1D212B] bg-[#0D0F13]/80 px-5 py-4 backdrop-blur-md hover:-translate-y-0.5"
           >
-            <dt className="text-xs text-[#636B7D]">Rates accepted</dt>
+            <dt className="text-xs text-[#858FA3]">Rates accepted</dt>
             <dd className="mt-1 font-mono text-xl font-medium text-[#F3F5F8]">USD / Robux</dd>
           </div>
           <div
@@ -205,7 +222,7 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             onPointerLeave={handleSpotlightLeave}
             className="spotlight-card rounded-lg border border-[#1D212B] bg-[#0D0F13]/80 px-5 py-4 backdrop-blur-md hover:-translate-y-0.5"
           >
-            <dt className="text-xs text-[#636B7D]">Code workflow</dt>
+            <dt className="text-xs text-[#858FA3]">Code workflow</dt>
             <dd className="mt-1 font-mono text-xl font-medium text-[#F3F5F8]">Rojo + Wally</dd>
           </div>
         </dl>

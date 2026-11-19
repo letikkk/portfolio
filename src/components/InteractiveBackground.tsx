@@ -525,7 +525,7 @@ export function InteractiveBackground({ mode }: InteractiveBackgroundProps) {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-45 sm:opacity-100"
     />
   );
 }
