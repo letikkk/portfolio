@@ -174,6 +174,15 @@ export function CommissionSection({
               <span>github.com/{PROFILE.githubHandle}</span>
               <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
             </a>
+            <a
+              href={PROFILE.boostyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#9CA3B2] transition-colors hover:text-[#38BDF8]"
+            >
+              <span>boosty.to/{PROFILE.boostyHandle}</span>
+              <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+            </a>
             <span>
               Discord: {PROFILE.discordHandle} · {PROFILE.timezone}
             </span>

@@ -100,6 +100,11 @@ describe('Letik Portfolio App', () => {
     for (const link of githubLinks) {
       expect(link).toHaveAttribute('href', 'https://github.com/letikkk');
     }
+    const boostyLinks = screen.getAllByRole('link', { name: /boosty/i });
+    expect(boostyLinks.length).toBeGreaterThanOrEqual(2);
+    for (const link of boostyLinks) {
+      expect(link).toHaveAttribute('href', 'https://boosty.to/letikcomms');
+    }
   });
 
   it('scopes modal next/prev navigation to the active category filter', () => {

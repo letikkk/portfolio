@@ -180,6 +180,21 @@ export function Hero({ copiedHandle, onCopyHandle, bgMode, onChangeBgMode }: Her
             </a>
           </Magnetic>
 
+          <Magnetic strength={0.16}>
+            <a
+              href={PROFILE.boostyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-[#1D212B] bg-[#0D0F13]/85 px-4 py-2.5 text-sm font-medium text-[#F3F5F8] backdrop-blur-md transition-all duration-200 hover:border-[#38BDF8]/50 hover:bg-[#13161D] active:scale-[0.97]"
+            >
+              <span>Boosty</span>
+              <ArrowUpRight
+                className="h-3.5 w-3.5 text-[#858FA3] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#38BDF8]"
+                aria-hidden="true"
+              />
+            </a>
+          </Magnetic>
+
           <span className="ml-1 hidden font-mono text-[11px] text-[#858FA3] lg:inline-block">
             Move cursor · Click anywhere to pulse
           </span>

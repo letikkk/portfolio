@@ -48,6 +48,8 @@ export const PROFILE = {
   discordHandle: '@letikgg',
   githubHandle: 'letikkk',
   githubUrl: 'https://github.com/letikkk',
+  boostyHandle: 'letikcomms',
+  boostyUrl: 'https://boosty.to/letikcomms',
   commissionsOpen: true,
   headline: 'Modular Luau systems built for live Roblox games.',
   bio: 'Full-stack Roblox scripter with 4 years of production experience and contributions to 25M+ visit titles. Clean client-server architecture, responsive UI flows, and scalable gameplay loops.',
